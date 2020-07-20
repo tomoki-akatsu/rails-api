@@ -4,7 +4,7 @@ class Api::UsersController < ApiController
     if user.save
       render json: user, serializer: UserSerializer
     else
-      error_message = { error: { messages: [ "メールアドレスまたはパスワードに誤りがあります。" ] } }
+      error_message = { error: { messages: [ "Email has already been taken" ] } }
       render json: error_message
     end
   end
