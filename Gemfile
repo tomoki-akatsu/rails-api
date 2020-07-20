@@ -52,6 +52,8 @@ group :development do
   gem 'rubocop',require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-performance', require: false
+  gem "ruby-debug-ide"
+  gem "debase"
 end
 
 group :test do
