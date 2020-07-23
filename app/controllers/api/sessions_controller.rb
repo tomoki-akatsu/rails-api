@@ -8,7 +8,7 @@ class Api::SessionsController < ApiController
       token = Jwt::TokenProvider.(user_id: user.id)
       render json: ActiveModelSerializers::SerializableResource.new(user, serializer: UserSerializer).as_json.deep_merge(user: { token: token })
     else
-      render json: { error: "メールアドレスまたはパスワードに誤りがあります。" }, status: 422
+      render json: { error: "メールアドレスまたはパスワードに誤りがあります。" }, status: 401
     end
   end
 

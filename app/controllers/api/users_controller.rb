@@ -5,7 +5,7 @@ class Api::UsersController < ApiController
       render json: user, serializer: UserSerializer
     else
       error_message = { error: { messages: [ "Email has already been taken" ] } }
-      render json: error_message
+      render json: error_message, status: 422
     end
   end
 
