@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  namespace :api do
+    # RestAPIのルーティングを簡単に書くための記法
+    # 今回はcreateのみ使用したいのでonlyオプションで指定する
+    resources :users, only: [:create]
+    resource :session, only: [:create]
+  end
 end
