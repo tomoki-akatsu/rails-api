@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <v-navigation-drawer v-model="drawer" app>
       <v-list dense>
-        <v-list-item link>
+        <v-list-item to="/" link>
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
@@ -10,7 +10,19 @@
             <v-list-item-title>ホーム</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link>
+        <v-list-item
+          @click="logout"
+          link
+          v-if="$store.getters[`auth/currentUser`]"
+        >
+          <v-list-item-action>
+            <v-icon>mdi-account</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>ログアウト</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item to="/login" link v-else>
           <v-list-item-action>
             <v-icon>mdi-account</v-icon>
           </v-list-item-action>
@@ -37,11 +49,17 @@
 
 <script>
 export default {
-  props: {
-    source: String,
-  },
   data: () => ({
     drawer: null,
   }),
+  methods: {
+    logout() {
+      if (confirm("ログアウトしますか？")) {
+        this.$store.dispatch("logout");
+        // 現在のページを再読み込みする
+        location.reload();
+      }
+    },
+  },
 };
 </script>

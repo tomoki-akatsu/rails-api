@@ -17,6 +17,9 @@ const actions = {
   async login({ commit }, sessionParams) {
     const res = await axios.post(`/api/session`, sessionParams)
     commit("SET_CURRENT_USER", res.data.user)
+  },
+  logout({ commit }) {
+    commit("CLEAR_CURRENT_USER")
   }
 };
 
@@ -29,6 +32,10 @@ const mutations = {
     localStorage.setItem('currentUser', JSON.stringify(user))
     // axiosを利用して通信をするときに、トークンをヘッダーに付与する設定
     axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`
+  },
+  CLEAR_CURRENT_USER: (state) => {
+    state.currentUser = null;
+    localStorage.removeItem('currentUser')
   }
 }
 
