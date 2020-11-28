@@ -1,4 +1,5 @@
 <template>
+  <v-container class="fill-height" fluid>
     <v-row justify="center" align="center">
       <v-col cols="12" md="6" sm="8">
         <v-card elevation="10">
@@ -32,6 +33,7 @@
         </v-card>
       </v-col>
     </v-row>
+  </v-container>
 </template>
 
 <script>
