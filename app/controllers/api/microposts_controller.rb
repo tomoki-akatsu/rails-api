@@ -13,6 +13,13 @@ class Api::MicropostsController < ApiController
   end
 
   def show
+    micropost = Micropost.find_by(id: params[:id])
+    if micropost
+      render json: micropost, serializer: MicropostSerializer
+    else
+      error_message = { error: { messages: [ "404 Not found" ] } }
+      render json: error_message, status: 404
+    end
   end
 
   def index
