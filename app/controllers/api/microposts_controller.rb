@@ -2,6 +2,13 @@ class Api::MicropostsController < ApiController
   # ログインしたユーザーのみ操作させたいため
   before_action :authenticate, only: [:create]
 
+  def index
+    # N+1問題を避けるためにincludesを使用する
+    microposts = Micropost.includes(:user).order(created_at: :desc)
+    # 対象がコレクションの場合はeach_serializerを使用する
+    render json: microposts, each_serializer: MicropostSerializer
+  end
+
   def create
     micropost = current_user.microposts.create!(micropost_params)
     if micropost.save
@@ -22,8 +29,6 @@ class Api::MicropostsController < ApiController
     end
   end
 
-  def index
-  end
 
   def update
   end
