@@ -29,8 +29,10 @@ class Api::MicropostsController < ApiController
     end
   end
 
-
   def update
+    micropost = current_user.microposts.find(params[:id])
+    micropost.update!(micropost_params)
+    render json: micropost, serializer: MicropostSerializer
   end
 
   def destroy
