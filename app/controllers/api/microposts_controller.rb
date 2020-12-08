@@ -10,6 +10,8 @@ class Api::MicropostsController < ApiController
   end
 
   def create
+    # current_userはUser.findの結果を返すので、
+    # modelでhas_manyを指定しているmicropostsを呼び出せる
     micropost = current_user.microposts.create!(micropost_params)
     if micropost.save
       render json: micropost, serializer: MicropostSerializer
@@ -20,6 +22,7 @@ class Api::MicropostsController < ApiController
   end
 
   def show
+    # findの場合だと存在しない場合ActiveRecord::RecordNotFound例外が発生する。
     micropost = Micropost.find_by(id: params[:id])
     if micropost
       render json: micropost, serializer: MicropostSerializer
