@@ -1,6 +1,6 @@
 class Api::MicropostsController < ApiController
   # ログインしたユーザーのみ操作させたいため
-  before_action :authenticate, only: [:create]
+  before_action :authenticate, only: [:create, :update, :destroy]
 
   def index
     # N+1問題を避けるためにincludesを使用する
