@@ -12,24 +12,18 @@ class Api::MicropostsController < ApiController
   def create
     # current_userはUser.findの結果を返すので、
     # modelでhas_manyを指定しているmicropostsを呼び出せる
+    # craeteは返り値としてtrue/falseを返却する
+    # create!は作成したインスタンスを返却する
+    # create!は正常に処理が行なわれなかった場合、例外を発生させる
     micropost = current_user.microposts.create!(micropost_params)
-    if micropost.save
-      render json: micropost, serializer: MicropostSerializer
-    else
-      error_message = { error: { messages: [ "Content can't be blank" ] } }
-      render json: error_message, status: 422
-    end
+    render json: micropost, serializer: MicropostSerializer
   end
 
   def show
-    # findの場合だと存在しない場合ActiveRecord::RecordNotFound例外が発生する。
-    micropost = Micropost.find_by(id: params[:id])
-    if micropost
-      render json: micropost, serializer: MicropostSerializer
-    else
-      error_message = { error: { messages: [ "404 Not found" ] } }
-      render json: error_message, status: 404
-    end
+    # findは存在しない場合ActiveRecord::RecordNotFound例外が発生する。
+    # 親コントローラーが例外をキャッチし、404例外処理を行う
+    micropost = Micropost.find(params[:id])
+    render json: micropost, serializer: MicropostSerializer
   end
 
   def update
