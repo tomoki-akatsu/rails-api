@@ -34,7 +34,7 @@ class Api::MicropostsController < ApiController
 
   def destroy
     micropost = current_user.microposts.find(params[:id])
-    micropost.destroy!()
+    micropost.destroy!
     render json: micropost, serializer: MicropostSerializer
   end
 
