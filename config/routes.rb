@@ -5,5 +5,6 @@ Rails.application.routes.draw do
     # 今回はcreateのみ使用したいのでonlyオプションで指定する
     resources :users, only: [:create]
     resource :session, only: [:create]
+    resources :microposts, only: [:create, :show, :index, :update, :destroy]
   end
 end

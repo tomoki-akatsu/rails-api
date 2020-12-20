@@ -13,4 +13,4 @@ module Jwt::TokenDecryptor
     end
 end
 
-class InvalidTokenError < StandardError end
+class InvalidTokenError < StandardError; end
